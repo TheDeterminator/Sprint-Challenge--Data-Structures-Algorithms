@@ -117,7 +117,11 @@ class BinarySearchTree:
     self.right = None
 
   def depth_first_for_each(self, cb):
-    
+    cb(self.value)
+    if self.left:
+        cb(self.left.value)
+    else:
+        cb(self.right.value)
 
   def breadth_first_for_each(self, cb):
     pass
@@ -157,12 +161,17 @@ class BinarySearchTree:
       current = current.right
     return max_value
 
-new_p = Stack()
-new_p.push(1)
-new_p.push(2)
-new_p.push(3)
-new_p.display()
-print(new_p.pop())
-new_p.display()
-# print(new_p.remove_head())
-# new_p.display()
+bst = BinarySearchTree(5)
+
+bst.insert(2)
+bst.insert(3)
+bst.insert(7)
+bst.insert(9)
+
+arr = []
+cb = lambda x: arr.append(x)
+
+bst.depth_first_for_each(cb)
+
+for item in arr:
+    print(item)
