@@ -23,8 +23,9 @@ class LinkedList:
         self.head = new_node
         self.tail = new_node
     else:
-        self.tail.set_next(new_node)
         self.tail = new_node
+        self.tail.set_next(new_node)
+
 
   def add_to_head(self, value):
       new_node = Node(value)
@@ -128,15 +129,18 @@ class BinarySearchTree:
         cb(current_node.value)
 
   def breadth_first_for_each(self, cb):
-      queue = Queue()
-      queue.enqueue(self)
+      # queue = Queue()
+      # queue.enqueue(self)
 
-      while queue.size > 0:
-          current_node = queue.dequeue()
+      queue = []
+      queue.append(self)
+
+      while len(queue) > 0:
+          current_node = queue.pop(0)
           if current_node.left:
-              queue.enqueue(current_node.left)
+              queue.append(current_node.left)
           if current_node.right:
-              queue.enqueue(current_node.right)
+              queue.append(current_node.right)
           cb(current_node.value)
 
   def insert(self, value):
