@@ -117,14 +117,27 @@ class BinarySearchTree:
     self.right = None
 
   def depth_first_for_each(self, cb):
-    cb(self.value)
-    if self.left:
-        cb(self.left.value)
-    else:
-        cb(self.right.value)
+    stack = Stack()
+    stack.push(self)
+    while stack.size > 0:
+        current_node = stack.pop()
+        if current_node.right:
+            stack.push(current_node.right)
+        if current_node.left:
+            stack.push(current_node.left)
+        cb(current_node.value)
 
   def breadth_first_for_each(self, cb):
-    pass
+      queue = Queue()
+      queue.enqueue(self)
+
+      while queue.size > 0:
+          current_node = queue.dequeue()
+          if current_node.left:
+              queue.enqueue(current_node.left)
+          if current_node.right:
+              queue.enqueue(current_node.right)
+          cb(current_node.value)
 
   def insert(self, value):
     new_tree = BinarySearchTree(value)
@@ -163,15 +176,19 @@ class BinarySearchTree:
 
 bst = BinarySearchTree(5)
 
-bst.insert(2)
-bst.insert(3)
-bst.insert(7)
-bst.insert(9)
+# bst.insert(2)
+# bst.insert(3)
+# bst.insert(7)
+# bst.insert(9)
 
 arr = []
-cb = lambda x: arr.append(x)
+cb = lambda x: print(x)
 
-bst.depth_first_for_each(cb)
+# bst.depth_first_for_each(cb)
 
-for item in arr:
-    print(item)
+bst.insert(3)
+bst.insert(4)
+bst.insert(10)
+bst.insert(9)
+bst.insert(11)
+bst.breadth_first_for_each(cb)
