@@ -1,11 +1,19 @@
 def heapsort(arr):
- pass 
- 
+ new_heap = Heap()
+ sorted_arr = []
+
+ for i in arr:
+     new_heap.insert(i)
+
+ while new_heap.storage:
+     sorted_arr.insert(0, new_heap.delete())
+ return sorted_arr
+
 
 class Heap:
   def __init__(self):
     self.storage = []
-    
+
   def insert(self, value):
     self.storage.append(value)
     self._bubble_up(len(self.storage) - 1)
@@ -15,7 +23,7 @@ class Heap:
     self.storage[0] = self.storage[len(self.storage) - 1]
     self.storage.pop()
     self._sift_down(0)
-    return retval 
+    return retval
 
   def get_max(self):
     return self.storage[0]
@@ -41,3 +49,5 @@ class Heap:
       return index * 2 + 1
     else:
       return index * 2 + 1 if self.storage[index * 2 + 1] > self.storage[index * 2 + 2] else index * 2 + 2
+
+print(heapsort([4, 7, 1 ,3, 2, 9, 6]))
